@@ -1,17 +1,12 @@
 import express from 'express';
 
+import "./database"
+import { routes } from './routes'
+
 const app = express();
 
-app.get('/', (req, res) => {
-    return res.json({
-        message: 'informação recebida do servidor'
-    })
-})
+app.use(express.json());
 
-app.post('/', (req, res) => {
-    return res.json({
-        message: 'informação gravada no servidor'
-    })
-})
+app.use(routes);
 
 app.listen(3333, () => console.log('server is running'))
