@@ -5,4 +5,4 @@ const settingsController = new SettingsController();
 
 export const routes = Router();
 
-routes.post("/settings", settingsController.create)
+routes.post("/settings", settingsController.create);
