@@ -10,10 +10,10 @@ interface ISettingsCreate {
 export class SettingsService {
     private settingsRepository: Repository<Settings>
 
-    constructor () {
+    constructor() {
         this.settingsRepository = getCustomRepository(SettingsRepository);
     }
-    
+
     async create({ chat, username }: ISettingsCreate) {
         const userAlreadyExist = await this.settingsRepository.findOne({
             username
@@ -33,4 +33,19 @@ export class SettingsService {
 
     }
 
+    async findByUsername(username: string) {
+        const settings = this.settingsRepository.findOne({
+            username
+        })
+        return settings;
+    }
+
+    async update(username: string, chat: boolean){
+        const settings = this.settingsRepository.createQueryBuilder().
+        update(Settings)
+        .set({chat })
+        .where("username = :username", {
+            username
+        }).execute();
+    }
 }

@@ -22,7 +22,7 @@ export class Message {
     text: string;
 
     @CreateDateColumn()
-    created_at: string;
+    created_at: Date;
 
     constructor() {
         !this.id ? this.id = uuid() : this.id;

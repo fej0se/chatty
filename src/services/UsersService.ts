@@ -3,26 +3,22 @@ import { User } from "../entities/Users";
 import { UsersRepository } from "../repositories/UsersRepository";
 
 
-interface IUserCreate {
-    email: string;
-}
-
-export class UsersService{
+export class UsersService {
     private usersRepository: Repository<User>
 
-    constructor(){
+    constructor() {
         this.usersRepository = getCustomRepository(UsersRepository);
     }
 
-    async create( { email }: IUserCreate ){
-        const userAlreadyExist = await this.usersRepository.findOne({
+    async create(email: string) {
+        const userExists = await this.usersRepository.findOne({
             email
         })
 
-        if(userAlreadyExist){
-            return userAlreadyExist;
+        if (userExists) {
+            return userExists;
         }
-        
+
         const user = this.usersRepository.create({
             email
         })
@@ -31,5 +27,13 @@ export class UsersService{
         return user;
 
 
+    }
+
+    async findByEmail(email: string){
+        const userExists = await this.usersRepository.findOne({
+            email
+        })
+
+        return userExists;
     }
 }
